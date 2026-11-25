@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Chalinas Españolas Reyna</title>
+  <meta name="theme-color" content="#8F101B">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="Reyna">
+  <link rel="manifest" href="manifest.json">
+  <link rel="apple-touch-icon" href="apple-touch-icon.png">
+  <link rel="icon" href="icon-192.png">
+  <style>
+    html, body { margin: 0; padding: 0; height: 100%; background: #FAF9F7; overflow: hidden; }
+    #app { position: fixed; inset: 0; border: 0; width: 100%; height: 100%; background: #FAF9F7; }
+    #cargando {
+      position: fixed; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center;
+      background: #FAF9F7; font-family: -apple-system, Helvetica, Arial, sans-serif; color: #6b6b6b; text-align: center; padding: 24px;
+      transition: opacity .25s ease;
+    }
+    #cargando img { width: 84px; height: 84px; border-radius: 50%; margin-bottom: 16px; border: 2px solid #D4AF37; }
+    #cargando .spinner {
+      width: 28px; height: 28px; border: 3px solid #ECE7E1; border-top-color: #8F101B; border-radius: 50%;
+      animation: girar 0.8s linear infinite; margin-top: 14px;
+    }
+    @keyframes girar { to { transform: rotate(360deg); } }
+    #respaldo { display: none; margin-top: 18px; font-size: 0.85rem; }
+    #respaldo a { color: #8F101B; font-weight: 600; text-decoration: none; }
+    #cargando.oculto { opacity: 0; pointer-events: none; }
+  </style>
+</head>
+<body>
+  <div id="cargando">
+    <img src="icon-512.png" alt="Chalinas Españolas Reyna">
+    <div>Abriendo Chalinas Españolas Reyna…</div>
+    <div class="spinner"></div>
+    <div id="respaldo">¿Tarda demasiado? <a href="https://script.google.com/a/macros/lldm.org/s/AKfycbwp2HHwbDhETqh59l8HEDi-sk4F1rxtaIsmFs3m66qlAgVQ6sGoQasyoqDF888rIDnH1g/exec" target="_top">Toca aquí para abrirla directo</a>.</div>
+  </div>
+  <iframe id="app" title="Chalinas Españolas Reyna" src="https://script.google.com/a/macros/lldm.org/s/AKfycbwp2HHwbDhETqh59l8HEDi-sk4F1rxtaIsmFs3m66qlAgVQ6sGoQasyoqDF888rIDnH1g/exec" allow="clipboard-write"></iframe>
+
+  <script>
+    var cargando = document.getElementById('cargando');
+    var app = document.getElementById('app');
+    app.addEventListener('load', function () {
+      cargando.classList.add('oculto');
+      setTimeout(function () { cargando.style.display = 'none'; }, 300);
+    });
+    // Si en 6 segundos no ha cargado, muestra el enlace de respaldo (por si el iframe
+    // se bloquea por configuración de la cuenta de Google).
+    setTimeout(function () { document.getElementById('respaldo').style.display = 'block'; }, 6000);
+
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('service-worker.js').catch(function () {});
+    }
+  </script>
+</body>
+</html>
